@@ -1,0 +1,16 @@
+{
+  "name": "isshdesk-dashboard",
+  "version": "1.0.0",
+  "description": "ISSHDESK Infrastructure & Application Dashboard — Datascrip 2026",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
