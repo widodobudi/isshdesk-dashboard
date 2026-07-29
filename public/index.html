@@ -765,7 +765,7 @@ function buildRiskTable(){
       <td>${sevPill(r.Severity_vm)}</td>
       <td>${r.total_apps}</td>
       <td>${r.active_apps}</td>
-      <td style="color:${r.high_critical>=5?'var(--dn)':r.high_critical>=2?'var(--wn)':'var(--t2)';font-weight:700}">${r.high_critical}</td>
+      <td style="color:${r.high_critical>=5?'var(--dn)':r.high_critical>=2?'var(--wn)':'var(--t2)'};font-weight:700">${r.high_critical}</td>
       <td><div style="display:flex;align-items:center;gap:6px"><span style="font-weight:700;color:${c};width:24px">${r.risk_score}</span><div style="flex:1;height:5px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden"><div style="width:${pct}%;height:100%;background:${c};border-radius:3px"></div></div></div></td>
     </tr>`;
   }).join('');
