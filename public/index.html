@@ -812,7 +812,7 @@ function renderVMRows(){
   const tbody=document.getElementById('vmTbody');
   if(!vmFiltered.length){tbody.innerHTML='<tr><td colspan="14" style="text-align:center;padding:28px;color:var(--t2)">Tidak ada data yang cocok dengan filter</td></tr>';updateVMCount();return;}
   tbody.innerHTML=vmFiltered.map(v=>`
-    <tr style="cursor:pointer" onclick="openVMDetail(${JSON.stringify(v).replace(/"/g,'&quot;')})">
+    <tr style="cursor:pointer" onclick="openVMDetailByIdx(${vmFiltered.indexOf(v)})">
       <td><strong>${v['VM Name']}</strong></td>
       <td><span style="font-size:11px;color:var(--t2)">${v['Function']}</span></td>
       <td>${sevPill(v['Severity'])}</td>
@@ -998,6 +998,10 @@ function attachTableSort(tableId, tbodyId, getArr, renderFn, setSortFn){
 // ============================================================
 // DETAIL PANELS
 // ============================================================
+function openVMDetailByIdx(idx){
+  var v=vmFiltered[idx];
+  if(v)openVMDetail(v);
+}
 function openVMDetail(v){
   document.getElementById('dp-vm-name').textContent=v['VM Name'];
   document.getElementById('dp-vm-sub').innerHTML=`${virtPill(v.Virtualization)} ${sevPill(v.Severity)} ${glPill(v['Status di Greenlake'])}`;
@@ -1014,7 +1018,7 @@ function openVMDetail(v){
       ${field('Guest OS',v['Guest OS']||'—')}
       ${field('Datastore',v['Datastore']||'—')}
       ${field('Mulai Migrasi',v['Start Time to Migrate']||'Belum dimulai')}
-      ${field('Selesai Migrasi',`<span style="color:${v['End Time to Migrate']?'var(--ok)':'var(--t3)'}">${v['End Time to Migrate']||'Belum selesai'}</span>`)}
+      ${field('Selesai Migrasi','<span style="color:'+(v['End Time to Migrate']?'var(--ok)':'var(--t3)')+'">'+( v['End Time to Migrate']||'Belum selesai')+'</span>')}
     </div>`;
   document.getElementById('vmDetail').classList.add('open');
 }
@@ -1040,7 +1044,7 @@ function openAppDetail(idx){
       ${field('Ukuran',a['SIZE (MB)']?(a['SIZE (MB)']+' MB'):'—')}
       ${field('Est. Mandays PHP 8',a['EST. MANDAYS']||'—')}
       ${field('Kubernetes',a['Is Kubernetes']||'—')}
-      ${link?field('Link',`<a href="${link}" target="_blank">${link.slice(0,40)}...</a>`):''}
+      ${link?field('Link','<a href="'+link+'" target="_blank">'+link.slice(0,40)+'...</a>'):''}
     </div>
     <div class="dp-sec">Keamanan</div>
     <div class="sec-chips">
